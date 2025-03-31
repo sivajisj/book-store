@@ -1,7 +1,15 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-})
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://fluffy-fiesta-rv97p9r64w425w94-5173.app.github.dev',
+        changeOrigin: true,
+        secure: false,  // Allow self-signed SSL certificates
+      },
+    },
+  },
+});

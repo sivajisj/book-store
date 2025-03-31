@@ -20,6 +20,8 @@ export const getProducts = async (req, res) => {
 
 export const postProducts = async (req, res) => {
   const products = req.body; // Expecting an array of products
+  console.log(products);
+  
 
   if (!Array.isArray(products) || products.length === 0) {
     return res
