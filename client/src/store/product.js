@@ -9,7 +9,7 @@ export const useProductStore = create((set)=> ({
         }
     
         try {
-            const res = await fetch("https://fluffy-fiesta-rv97p9r64w425w94-5000.app.github.dev/api/products", {
+            const res = await fetch("https://special-robot-wj6vg6957wvhgx46-5000.app.github.dev/api/products", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -32,13 +32,26 @@ export const useProductStore = create((set)=> ({
               
         } catch (error) {
             console.error("Fetch Error:", error);
-            return { success: false, message: "An error occurred. Please try again later." };
+            return { "success": false, "message": "An error occurred. Please try again later." };
         }
     },
     fetchProducts: async () => {
-      const res = await fetch("https://fluffy-fiesta-rv97p9r64w425w94-5000.app.github.dev/api/products");
+      const res = await fetch("https://special-robot-wj6vg6957wvhgx46-5000.app.github.dev/api/products");
       const data = await res.json();
       set({ products: data.data });
     },
+    deleteProduct: async (id)=>{
+      const res = await fetch(`https://special-robot-wj6vg6957wvhgx46-5000.app.github.dev/api/products/${id}`,{
+        method: "DELETE",
+
+      })
+      const data = await res.json()
+      if(!data.success){
+        return { "success": false, "message": data.message}
+      }
+      set(state => ({ products: state.products.filter(product => product.id !== id)}))
+      return { "success": true, "message": data.message}
+
+    }
     
 }))
