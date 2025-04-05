@@ -31,7 +31,7 @@ backend/dist-ssr
 backend/*.local
 backend/.env
 
-frontend/node_modules
-frontend/dist
-frontend/dist-ssr
-frontend/*.local
+client/node_modules
+client/dist
+client/dist-ssr
+client/*.local
