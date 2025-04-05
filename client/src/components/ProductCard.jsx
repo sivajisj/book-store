@@ -26,12 +26,12 @@ import { useState } from "react";
 const ProductCard = ({ product }) => {
 	const [updatedProduct, setUpdatedProduct] = useState(product);
 
+	const {isOpen, onOpen, onClose} = useDisclosure()
 	const textColor = useColorModeValue("gray.600", "gray.200");
 	const bg = useColorModeValue("white", "gray.800");
 
 	const { deleteProduct, updateProduct } = useProductStore();
 	const toast = useToast();
-	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const handleDeleteProduct = async (pid) => {
 		const { success, message } = await deleteProduct(pid);

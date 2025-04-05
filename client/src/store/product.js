@@ -9,7 +9,7 @@ export const useProductStore = create((set)=> ({
         }
     
         try {
-            const res = await fetch("https://special-robot-wj6vg6957wvhgx46-5000.app.github.dev/api/products", {
+            const res = await fetch("/api/products", {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -36,12 +36,12 @@ export const useProductStore = create((set)=> ({
         }
     },
     fetchProducts: async () => {
-      const res = await fetch("https://special-robot-wj6vg6957wvhgx46-5000.app.github.dev/api/products");
+      const res = await fetch("/api/products");
       const data = await res.json();
       set({ products: data.data });
     },
     deleteProduct: async (id)=>{
-      const res = await fetch(`https://special-robot-wj6vg6957wvhgx46-5000.app.github.dev/api/products/${id}`,{
+      const res = await fetch(`/api/products/${id}`,{
         method: "DELETE",
 
       })
@@ -52,6 +52,24 @@ export const useProductStore = create((set)=> ({
       set(state => ({ products: state.products.filter(product => product.id !== id)}))
       return { "success": true, "message": data.message}
 
-    }
+    },
+    updateProduct: async (pid, updatedProduct) => {
+      const res = await fetch(`/api/products/${pid}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedProduct),
+      });
+      const data = await res.json();
+      if (!data.success) return { success: false, message: data.message };
+  
+      // update the ui immediately, without needing a refresh
+      set((state) => ({
+        products: state.products.map((product) => (product._id === pid ? data.data : product)),
+      }));
+  
+      return { success: true, message: data.message };
+    },
     
 }))

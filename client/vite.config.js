@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://fluffy-fiesta-rv97p9r64w425w94-5173.app.github.dev',
+        target: 'http://localhost:5173',
         changeOrigin: true,
         secure: false,  // Allow self-signed SSL certificates
       },
